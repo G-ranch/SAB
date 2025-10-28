@@ -1,0 +1,41 @@
+local Library = loadstring(game:HttpGet('https://pastefy.app/sOFPrF6a/raw'))()  
+local brainrotModel = game:GetService("ReplicatedStorage"):WaitForChild("BrainrotModel") -- Replace "BrainrotModel" with the actual model in ReplicatedStorage  
+local basePart = workspace:WaitForChild("BasePart") -- Replace "BasePart" with the actual name of your base
+
+local Window = Library:Window({  
+Title = 'Brainrot Spawner',  
+Desc = 'Spawns brainrot in your base',  
+Icon = 94425520075595,  
+Theme = 'Trax',  
+Config = {  
+Size = UDim2.new(0, 300, 0, 200),  
+},  
+CloseUIButton = {  
+Enabled = true,  
+Text = 'close',  
+},  
+})
+
+local brainrotSelect = Window:Dropdown({  
+Title = 'Select Brainrot',  
+Desc = 'Choose a brainrot model',  
+Options = {  
+    {"ChicleteiraBicicleteira", "ChicleteiraBicicleteira"},  
+    {"Galactic", "Galactic"},  
+},  
+Default = "ChicleteiraBicicleteira",  
+})
+
+local spawnButton = Window:Button({  
+Title = 'Spawn',  
+Desc = 'Spawns brainrot in your base',  
+Callback = function()  
+local selectedBrainrotName = brainrotSelect.SelectedValue  
+local brainrotModelToSpawn = game:GetService("ReplicatedStorage"):WaitForChild(selectedBrainrotName)
+
+local brainrot = brainrotModelToSpawn:Clone()  
+brainrot.Parent = basePart  
+brainrot:SetPrimaryPartCFrame(basePart.CFrame * CFrame.new(math.random(-5, 5), math.random(0, 5), math.random(-5, 5))) -- Random position around the base  
+print("Spawned brainrot instance")  
+end,  
+})  
